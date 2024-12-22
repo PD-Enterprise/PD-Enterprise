@@ -50,7 +50,6 @@
 			</div>
 		</div>
 	</div>
-	<p><a href="https://giphy.com/gifs/party-fun-christmas-3o6ZtjqdcQfuno2WPK">via GIPHY</a></p>
 	<hr />
 	<div class="about-us" id="about-us">
 		<div class="title">
@@ -131,6 +130,7 @@
 		z-index: -1;
 		inset: 0;
 		overflow: hidden;
+		position: relative;
 	}
 	.snowflake {
 		--small: 3px;
@@ -144,7 +144,7 @@
 			snow 6s linear infinite,
 			wind 10s ease-in-out infinite;
 		top: -10%;
-		left: 10%;
+		left: calc(10% - var(--small));
 	}
 	.snowflake:nth-child(2n + 3) {
 		/* 3, 5, 7, ... */
