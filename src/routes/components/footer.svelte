@@ -1,10 +1,27 @@
 <script lang="ts">
 	import logo from '../images/logo.png'; //imports logo image from images
+	import { theme } from '$lib/stores/theme';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		theme.subscribe((value) => {
+			const logo = document.getElementById('footer-logo');
+			if (logo != null) {
+				if (value) {
+					logo.classList.remove('filter');
+					logo.classList.add('no-filter');
+				} else {
+					logo.classList.remove('no-filter');
+					logo.classList.add('filter');
+				}
+			}
+		});
+	});
 </script>
 
 <footer class="footer bg-base-300 p-10 text-base-content">
 	<aside>
-		<img src={logo} alt="logo" id="footer-logo" />
+		<img src={logo} alt="logo" id="footer-logo" class="filter" />
 		<p>
 			PD Enterprise
 			<br />
@@ -32,6 +49,11 @@
 		border-radius: 100px;
 		cursor: pointer;
 		margin-bottom: 10px;
+	}
+	.filter {
 		filter: brightness(0) invert(1);
+	}
+	.no-filter {
+		filter: none;
 	}
 </style>

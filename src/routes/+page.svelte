@@ -127,7 +127,7 @@
 
 <style>
 	.snowfall {
-		z-index: -1;
+		z-index: auto;
 		inset: 0;
 		overflow: hidden;
 		position: relative;

@@ -1,7 +1,24 @@
 <script lang="ts">
-	import logo from '../images/logo.png'; //imports logo image from images
+	import logo from '../images/logo.png';
+	import { theme } from '$lib/stores/theme';
+	import { onMount } from 'svelte';
 
 	let isDropdownOpen: boolean = false;
+
+	onMount(() => {
+		theme.subscribe((value) => {
+			const logo = document.getElementById('navbar-logo');
+			if (logo != null) {
+				if (value) {
+					logo.classList.remove('filter');
+					logo.classList.add('no-filter');
+				} else {
+					logo.classList.remove('no-filter');
+					logo.classList.add('filter');
+				}
+			}
+		});
+	});
 </script>
 
 <div class="navbar bg-base-300">
@@ -33,7 +50,7 @@
 				</li>
 			</ul>
 		</div>
-		<img src={logo} alt="logo" id="navbar-logo" />
+		<img src={logo} alt="logo" id="navbar-logo" class="filter" />
 		<a href="/" class="btn btn-ghost text-2xl"> PD Enterprise </a>
 	</div>
 	<div class="navbar-center hidden lg:flex">
@@ -64,7 +81,7 @@
 				d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
 			/>
 		</svg>
-		<input type="checkbox" value="light" class="theme-controller toggle" />
+		<input type="checkbox" value="light" class="theme-controller toggle" bind:checked={$theme} />
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="20"
@@ -85,6 +102,18 @@
 	:root {
 		--image-size: 70px;
 	}
+	#navbar-logo {
+		width: var(--image-size);
+		border-radius: 100px;
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+	.filter {
+		filter: brightness(0) invert(1);
+	}
+	.no-filter {
+		filter: none;
+	}
 	.navbar {
 		cursor: default;
 		position: fixed;
@@ -92,23 +121,4 @@
 		background-color: var(--base-300);
 		backdrop-filter: blur(30px);
 	}
-	#navbar-logo {
-		width: var(--image-size);
-		border-radius: 100px;
-		cursor: pointer;
-		margin-bottom: 10px;
-		filter: brightness(0) invert(1);
-	}
-	/* .dropdown-container {
-		position: absolute;
-		top: 50%;
-	}
-	.dropdown-content {
-		background-color: white;
-		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-		z-index: 1;
-	}
-	.dropdown-content[aria-expanded='true'] {
-		display: block;
-	} */
 </style>
