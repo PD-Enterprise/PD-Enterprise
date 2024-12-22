@@ -1,22 +1,39 @@
 <script lang="ts">
 	import aboutUsImage from './images/students-studying-image.jpg';
 	import santaHat from './images/santa-hat.png';
+	import { theme } from '$lib/stores/theme';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		theme.subscribe((value) => {
+			const snowflakes = document.querySelectorAll('.snowflake');
+			snowflakes.forEach((snowflake) => {
+				if (value) {
+					snowflake.classList.remove('snowflake-color-light');
+					snowflake.classList.add('snowflake-color-dark');
+				} else {
+					snowflake.classList.remove('snowflake-color-dark');
+					snowflake.classList.add('snowflake-color-light');
+				}
+			});
+		});
+	});
 </script>
 
 <div class="main snowfall">
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
-	<div class="snowflake"></div>
+	<div class="snowflake snowflake-color-dark" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+	<div class="snowflake snowflake-color-light" id="snowflake"></div>
 	<div class="hero-section">
 		<div class="hero min-h-screen">
 			<div class="hero-content flex-col lg:flex-row-reverse">
@@ -138,7 +155,6 @@
 		width: var(--small);
 		height: var(--small);
 		position: absolute;
-		background-color: #fff;
 		border-radius: 50%;
 		animation:
 			snow 6s linear infinite,
@@ -146,8 +162,14 @@
 		top: -10%;
 		left: calc(10% - var(--small));
 	}
+	.snowflake-color-light {
+		background-color: #fff;
+	}
+	.snowflake-color-dark {
+		background-color: #c0b8b8;
+		box-shadow: 0 0 10px #000;
+	}
 	.snowflake:nth-child(2n + 3) {
-		/* 3, 5, 7, ... */
 		width: var(--medium);
 		height: var(--medium);
 	}
