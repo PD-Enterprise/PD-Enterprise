@@ -1,18 +1,39 @@
 <script lang="ts">
 	import aboutUsImage from './images/students-studying-image.jpg';
-	import Navbar from './components/navbar.svelte';
-	import Footer from './components/footer.svelte';
+	import santaHat from './images/santa-hat.png';
 </script>
 
-<div class="main">
-	<div class="navbar">
-		<Navbar />
-	</div>
+<div class="main snowfall">
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
+	<div class="snowflake"></div>
 	<div class="hero-section">
 		<div class="hero min-h-screen">
 			<div class="hero-content flex-col lg:flex-row-reverse">
 				<div id="home">
-					<h8 id="grade-app" class="font-bold">PD Enterprise</h8>
+					<h8 id="grade-app" class="ml-9 font-bold">
+						<span style="position: relative; display: inline-block;">
+							<img
+								src={santaHat}
+								alt="santa hat"
+								class="santa-hat"
+								style="position: relative; top: 110px; left: -100px;"
+								width="200"
+								height="200"
+							/>
+							PD Enterprise
+						</span>
+					</h8>
 					<p class="pb-4 pt-2" id="homep">Empowering Students. Simplifying Learning.</p>
 					<div class="subheadline">
 						<p>
@@ -29,6 +50,7 @@
 			</div>
 		</div>
 	</div>
+	<p><a href="https://giphy.com/gifs/party-fun-christmas-3o6ZtjqdcQfuno2WPK">via GIPHY</a></p>
 	<hr />
 	<div class="about-us" id="about-us">
 		<div class="title">
@@ -102,12 +124,83 @@
 		</div>
 	</div>
 	<hr />
-	<div class="footer">
-		<Footer />
-	</div>
 </div>
 
 <style>
+	.snowfall {
+		z-index: -1;
+		inset: 0;
+		overflow: hidden;
+	}
+	.snowflake {
+		--small: 3px;
+		--medium: 7px;
+		width: var(--small);
+		height: var(--small);
+		position: absolute;
+		background-color: #fff;
+		border-radius: 50%;
+		animation:
+			snow 6s linear infinite,
+			wind 10s ease-in-out infinite;
+		top: -10%;
+		left: 10%;
+	}
+	.snowflake:nth-child(2n + 3) {
+		/* 3, 5, 7, ... */
+		width: var(--medium);
+		height: var(--medium);
+	}
+	.snowflake:nth-child(1) {
+		left: 25%;
+		animation-delay: 1s;
+	}
+	.snowflake:nth-child(2) {
+		left: 85%;
+		animation-delay: 1.5s;
+	}
+	.snowflake:nth-child(3) {
+		left: 30%;
+		animation-delay: 2s;
+	}
+	.snowflake:nth-child(4) {
+		left: 65%;
+		animation-delay: 2.5s;
+	}
+	.snowflake:nth-child(5) {
+		left: 25%;
+		animation-delay: 3s;
+	}
+	.snowflake:nth-child(6) {
+		left: 95%;
+		animation-delay: 3.5s;
+	}
+	.snowflake:nth-child(7) {
+		left: 55%;
+		animation-delay: 4s;
+	}
+	.snowflake:nth-child(8) {
+		left: 10%;
+		animation-delay: 4.5s;
+	}
+	.snowflake:nth-child(9) {
+		left: 70%;
+		animation-delay: 5s;
+	}
+	.snowflake:nth-child(10) {
+		left: 20%;
+		animation-delay: 5.5s;
+	}
+	@keyframes snow {
+		100% {
+			top: 100%;
+		}
+	}
+	@keyframes wind {
+		50% {
+			transform: translateX(120px);
+		}
+	}
 	.title {
 		max-width: 50%;
 	}
