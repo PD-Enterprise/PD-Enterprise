@@ -31,7 +31,6 @@
 
 		if (result.status === 200) {
 			post = result.data;
-			console.log(post);
 		} else {
 			error = result.message;
 		}

@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ request }) => {
     if (query) {
         return json({ status: 200, data: query, message: "success" });
     } else {
-        return json({ status: 500, data: null, message: "error" });
+        return json({ status: 500, data: query, message: "error" });
     }
 }
 
@@ -19,6 +19,6 @@ export const POST: RequestHandler = async ({ request }) => {
     if (query) {
         return json({ status: 200, data: query, message: "success" });
     } else {
-        return json({ status: 500, data: null, message: "error" });
+        return json({ status: 500, data: query, message: "error" });
     }
 }
