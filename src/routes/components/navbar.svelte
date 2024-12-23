@@ -3,8 +3,6 @@
 	import { theme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 
-	let isDropdownOpen: boolean = false;
-
 	onMount(() => {
 		theme.subscribe((value) => {
 			const logo = document.getElementById('navbar-logo');
@@ -48,6 +46,53 @@
 				<li>
 					<a href="#contact-us">Contact</a>
 				</li>
+				<li>
+					<label class="flex cursor-pointer gap-2">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<circle cx="12" cy="12" r="5" />
+							<path
+								d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+							/>
+						</svg>
+						<input
+							type="checkbox"
+							value="light"
+							class="theme-controller toggle"
+							bind:checked={$theme}
+						/>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+						</svg>
+					</label>
+				</li>
+				<div class="menu-buttons">
+					<li class="mb-2">
+						<a class="btn btn-accent" href="/">Login</a>
+					</li>
+					<li>
+						<a class="btn" href="/">Sign up</a>
+					</li>
+				</div>
 			</ul>
 		</div>
 		<img src={logo} alt="logo" id="navbar-logo" class="filter" />
@@ -62,40 +107,51 @@
 			<li>
 				<a href="#contact-us">Contact Us</a>
 			</li>
+			<li>
+				<label class="flex cursor-pointer gap-2">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="12" cy="12" r="5" />
+						<path
+							d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+						/>
+					</svg>
+					<input
+						type="checkbox"
+						value="light"
+						class="theme-controller toggle"
+						bind:checked={$theme}
+					/>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+					</svg>
+				</label>
+			</li>
 		</ul>
 	</div>
-	<label class="flex cursor-pointer gap-2">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="20"
-			height="20"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<circle cx="12" cy="12" r="5" />
-			<path
-				d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
-			/>
-		</svg>
-		<input type="checkbox" value="light" class="theme-controller toggle" bind:checked={$theme} />
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="20"
-			height="20"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-		</svg>
-	</label>
+	<div class="navbar-buttons navbar-end mr-2 gap-2">
+		<a class="btn btn-accent" href="/">Login</a>
+		<a class="btn" href="/">Sign up</a>
+	</div>
 </div>
 
 <style>
@@ -120,5 +176,16 @@
 		z-index: 1000;
 		background-color: var(--base-300);
 		backdrop-filter: blur(30px);
+	}
+	.menu-buttons {
+		display: none;
+	}
+	@media (max-width: 466px) {
+		.navbar-buttons {
+			display: none;
+		}
+		.menu-buttons {
+			display: block;
+		}
 	}
 </style>
