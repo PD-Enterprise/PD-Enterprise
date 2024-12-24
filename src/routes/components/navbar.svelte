@@ -1,9 +1,16 @@
 <script lang="ts">
+	// Imports
 	import logo from '../images/logo.png';
 	import { theme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
+	import Form from './form.svelte';
+	import { goto } from '$app/navigation';
 
-	onMount(() => {
+	// Variables
+	let cookieValue;
+
+	// Functions
+	onMount(async () => {
 		theme.subscribe((value) => {
 			const logo = document.getElementById('navbar-logo');
 			if (logo != null) {
@@ -16,7 +23,24 @@
 				}
 			}
 		});
+
+		const response = await fetch('/api/cookie', {
+			method: 'GET',
+			credentials: 'include'
+		});
+		if (response.ok) {
+			const data = await response.json();
+			cookieValue = data.cookieValue;
+			if (cookieValue) {
+				renewCookie();
+			}
+		} else {
+			console.error('Failed to fetch cookie.', response.statusText);
+		}
 	});
+	async function renewCookie() {
+		// goto('/admin-dashboard');
+	}
 </script>
 
 <div class="navbar bg-base-300">
@@ -150,7 +174,13 @@
 	</div>
 	<div class="navbar-buttons navbar-end mr-2 gap-2">
 		<a class="btn btn-accent" href="/">Login</a>
-		<a class="btn" href="/">Sign up</a>
+		<a href="#form" class="btn">Sign up</a>
+	</div>
+</div>
+
+<div class="modal modal-bottom sm:modal-middle" role="dialog" id="form">
+	<div class="modal-box">
+		<Form type="register" />
 	</div>
 </div>
 
