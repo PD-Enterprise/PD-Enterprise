@@ -14,6 +14,17 @@
 
 	// Functions
 	onMount(async () => {
+		const navbarLoginButtonsElement = document.getElementById(
+			'navbar-login-buttons'
+		) as HTMLElement;
+		const menuLoginButtonsElement = document.getElementById('menu-login-buttons') as HTMLElement;
+		const navbarDashboardButtonsElement = document.getElementById(
+			'navbar-button-dashboard'
+		) as HTMLElement;
+		const menuDashboardButtonsElement = document.getElementById(
+			'menu-button-dashboard'
+		) as HTMLElement;
+
 		theme.subscribe((value) => {
 			const logo = document.getElementById('navbar-logo');
 			if (logo != null) {
@@ -35,10 +46,16 @@
 		if (result.message == 'success') {
 			cookieValue = result.cookieValue;
 			if (cookieValue) {
-				renewCookie();
+				await renewCookie();
 			}
 		} else {
 			// console.error('Failed to fetch cookie.', result.message);
+		}
+		if (loggedIn) {
+			navbarLoginButtonsElement.classList.add('hidden');
+			menuLoginButtonsElement.classList.add('hidden');
+			navbarDashboardButtonsElement.classList.remove('hidden');
+			menuDashboardButtonsElement.classList.remove('hidden');
 		}
 	});
 	async function renewCookie() {
@@ -124,34 +141,32 @@
 						</svg>
 					</label>
 				</li>
-				{#if !loggedIn}
-					<div class="menu-buttons">
-						<li class="mb-2">
-							<a
-								class="btn btn-accent"
-								href="#form"
-								on:click={() => {
-									formMode = 'login';
-									showModal.set(true);
-								}}>Login</a
-							>
-						</li>
-						<li>
-							<a
-								class="btn"
-								href="#form"
-								on:click={() => {
-									formMode = 'register';
-									showModal.set(true);
-								}}>Sign up</a
-							>
-						</li>
-					</div>
-				{:else}
-					<div class="menu-buttons">
-						<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
-					</div>
-				{/if}
+
+				<div class="menu-buttons menu-login-buttons" id="menu-login-buttons">
+					<li class="mb-2">
+						<a
+							class="btn btn-accent"
+							href="#form"
+							on:click={() => {
+								formMode = 'login';
+								showModal.set(true);
+							}}>Login</a
+						>
+					</li>
+					<li>
+						<a
+							class="btn"
+							href="#form"
+							on:click={() => {
+								formMode = 'register';
+								showModal.set(true);
+							}}>Sign up</a
+						>
+					</li>
+				</div>
+				<div class="menu-button-dashboard hidden" id="menu-button-dashboard">
+					<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
+				</div>
 			</ul>
 		</div>
 		<img src={logo} alt="logo" id="navbar-logo" class="filter" />
@@ -207,30 +222,27 @@
 			</li>
 		</ul>
 	</div>
-	{#if !loggedIn}
-		<div class="navbar-buttons navbar-end mr-2 gap-2">
-			<a
-				class="btn btn-accent"
-				href="#form"
-				on:click={() => {
-					formMode = 'login';
-					showModal.set(true);
-				}}>Login</a
-			>
-			<a
-				href="#form"
-				class="btn"
-				on:click={() => {
-					formMode = 'register';
-					showModal.set(true);
-				}}>Sign up</a
-			>
-		</div>
-	{:else}
-		<div class="navbar-buttons navbar-end mr-2 gap-2">
-			<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
-		</div>
-	{/if}
+	<div class="navbar-buttons navbar-login-buttons navbar-end mr-2 gap-2" id="navbar-login-buttons">
+		<a
+			class="btn btn-accent"
+			href="#form"
+			on:click={() => {
+				formMode = 'login';
+				showModal.set(true);
+			}}>Login</a
+		>
+		<a
+			href="#form"
+			class="btn"
+			on:click={() => {
+				formMode = 'register';
+				showModal.set(true);
+			}}>Sign up</a
+		>
+	</div>
+	<div class="navbar-buttons navbar-end mr-2 hidden gap-2" id="navbar-button-dashboard">
+		<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
+	</div>
 </div>
 
 {#if $showModal}
@@ -263,9 +275,6 @@
 		z-index: 1000;
 		background-color: var(--base-300);
 		backdrop-filter: blur(30px);
-	}
-	.menu-buttons {
-		display: none;
 	}
 	@media (max-width: 466px) {
 		.navbar-buttons {
