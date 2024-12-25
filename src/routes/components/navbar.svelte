@@ -51,6 +51,7 @@
 		} else {
 			// console.error('Failed to fetch cookie.', result.message);
 		}
+		console.log(loggedIn);
 		if (loggedIn) {
 			navbarLoginButtonsElement.classList.add('hidden');
 			menuLoginButtonsElement.classList.add('hidden');
@@ -69,6 +70,7 @@
 			})
 		});
 		const result = await response.json();
+		console.log(result);
 		if (result.message == 'success') {
 			loggedIn = true;
 		}
