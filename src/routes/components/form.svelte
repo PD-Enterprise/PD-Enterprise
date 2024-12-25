@@ -13,9 +13,50 @@
 	let password: string;
 	let type = $props();
 	let sign: string = '';
+	let cookieValue: string;
 
 	// Functions
-	async function login() {}
+	onMount(async () => {
+		const response = await fetch('/api/cookie', {
+			method: 'GET',
+			credentials: 'include'
+		});
+		const result = await response.json();
+		if (result.message == 'success') {
+			cookieValue = result.cookieValue;
+		} else {
+			// console.error('Failed to fetch cookie.', result.message);
+		}
+	});
+	async function login() {
+		if (email && password) {
+			try {
+				const response = await fetch('/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						email: email,
+						password: password,
+						session_id: cookieValue
+					})
+				});
+				const result = await response.json();
+				if (result.message == 'user not found.') {
+					showToast('Error', 'User not found. Please register.', 5000, 'error');
+				} else if (result.message == 'invalid credentials.') {
+					showToast('Error', 'Invalid credentials.', 5000, 'error');
+				} else if (result.message == 'success') {
+					sessionStorage.setItem('Email', email);
+					showToast('Success', 'Successfully logged in.', 5000, 'success');
+					goto('/admin-dashboard');
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}
 	async function register() {
 		if (username && email && password) {
 			try {

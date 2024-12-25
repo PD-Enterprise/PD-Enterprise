@@ -10,6 +10,7 @@
 	// Variables
 	let cookieValue: string;
 	let loggedIn: boolean = false;
+	let formMode: 'register' | 'login' = 'register';
 
 	// Functions
 	onMount(async () => {
@@ -30,14 +31,14 @@
 			method: 'GET',
 			credentials: 'include'
 		});
-		if (response.ok) {
-			const data = await response.json();
-			cookieValue = data.cookieValue;
+		const result = await response.json();
+		if (result.message == 'success') {
+			cookieValue = result.cookieValue;
 			if (cookieValue) {
 				renewCookie();
 			}
 		} else {
-			console.error('Failed to fetch cookie.', response.statusText);
+			// console.error('Failed to fetch cookie.', result.message);
 		}
 	});
 	async function renewCookie() {
@@ -194,11 +195,19 @@
 	</div>
 	{#if !loggedIn}
 		<div class="navbar-buttons navbar-end mr-2 gap-2">
-			<a class="btn btn-accent" href="/">Login</a>
+			<a
+				class="btn btn-accent"
+				href="#form"
+				on:click={() => {
+					formMode = 'login';
+					showModal.set(true);
+				}}>Login</a
+			>
 			<a
 				href="#form"
 				class="btn"
 				on:click={() => {
+					formMode = 'register';
 					showModal.set(true);
 				}}>Sign up</a
 			>
@@ -213,7 +222,7 @@
 {#if $showModal}
 	<div class="modal modal-bottom sm:modal-middle" role="dialog" id="form">
 		<div class="modal-box">
-			<Form type="register" />
+			<Form type={formMode} />
 		</div>
 	</div>
 {/if}
