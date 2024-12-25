@@ -127,10 +127,24 @@
 				{#if !loggedIn}
 					<div class="menu-buttons">
 						<li class="mb-2">
-							<a class="btn btn-accent" href="/">Login</a>
+							<a
+								class="btn btn-accent"
+								href="#form"
+								on:click={() => {
+									formMode = 'login';
+									showModal.set(true);
+								}}>Login</a
+							>
 						</li>
 						<li>
-							<a class="btn" href="/">Sign up</a>
+							<a
+								class="btn"
+								href="#form"
+								on:click={() => {
+									formMode = 'register';
+									showModal.set(true);
+								}}>Sign up</a
+							>
 						</li>
 					</div>
 				{:else}
