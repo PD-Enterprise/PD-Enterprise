@@ -5,9 +5,11 @@
 	import { onMount } from 'svelte';
 	import Form from './form.svelte';
 	import { goto } from '$app/navigation';
+	import { showModal } from '$lib/stores/showLoginForm';
 
 	// Variables
-	let cookieValue;
+	let cookieValue: string;
+	let loggedIn: boolean = false;
 
 	// Functions
 	onMount(async () => {
@@ -39,7 +41,19 @@
 		}
 	});
 	async function renewCookie() {
-		// goto('/admin-dashboard');
+		const response = await fetch('/api/database', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				session_id: cookieValue
+			})
+		});
+		const result = await response.json();
+		if (result.message == 'success') {
+			loggedIn = true;
+		}
 	}
 </script>
 
@@ -109,14 +123,20 @@
 						</svg>
 					</label>
 				</li>
-				<div class="menu-buttons">
-					<li class="mb-2">
-						<a class="btn btn-accent" href="/">Login</a>
-					</li>
-					<li>
-						<a class="btn" href="/">Sign up</a>
-					</li>
-				</div>
+				{#if !loggedIn}
+					<div class="menu-buttons">
+						<li class="mb-2">
+							<a class="btn btn-accent" href="/">Login</a>
+						</li>
+						<li>
+							<a class="btn" href="/">Sign up</a>
+						</li>
+					</div>
+				{:else}
+					<div class="menu-buttons">
+						<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
+					</div>
+				{/if}
 			</ul>
 		</div>
 		<img src={logo} alt="logo" id="navbar-logo" class="filter" />
@@ -172,17 +192,31 @@
 			</li>
 		</ul>
 	</div>
-	<div class="navbar-buttons navbar-end mr-2 gap-2">
-		<a class="btn btn-accent" href="/">Login</a>
-		<a href="#form" class="btn">Sign up</a>
-	</div>
+	{#if !loggedIn}
+		<div class="navbar-buttons navbar-end mr-2 gap-2">
+			<a class="btn btn-accent" href="/">Login</a>
+			<a
+				href="#form"
+				class="btn"
+				on:click={() => {
+					showModal.set(true);
+				}}>Sign up</a
+			>
+		</div>
+	{:else}
+		<div class="navbar-buttons navbar-end mr-2 gap-2">
+			<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
+		</div>
+	{/if}
 </div>
 
-<div class="modal modal-bottom sm:modal-middle" role="dialog" id="form">
-	<div class="modal-box">
-		<Form type="register" />
+{#if $showModal}
+	<div class="modal modal-bottom sm:modal-middle" role="dialog" id="form">
+		<div class="modal-box">
+			<Form type="register" />
+		</div>
 	</div>
-</div>
+{/if}
 
 <style>
 	:root {

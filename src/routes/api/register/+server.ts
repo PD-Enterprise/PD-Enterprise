@@ -1,8 +1,7 @@
 import { json, type RequestHandler } from "@sveltejs/kit"
 import { sql } from "../../../db.server";
 import stringHash from "string-hash";
-import * as cookie from "cookie";
-import { v4 as uuidv4 } from 'uuid';
+import { newCookie } from "$lib/utils/newCookieUtil";
 
 //@ts-ignore
 export const POST: RequestHandler = async ({ request }) => {
@@ -31,17 +30,8 @@ async function checkUserExists(email: string) {
 }
 
 async function registerUser(body: any) {
-    const cookieID = uuidv4();
-    const headers = {
-        "Set-cookie": cookie.serialize("Session_id", cookieID, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "strict",
-            path: "/",
-            maxAge: 60 * 60 * 24 * 30
-        })
-    }
-
+    const headers = newCookie("Session_id");
+    const cookieID = headers["Set-cookie"].split("=")[1].split(";")[0];
     const response = await sql`insert into users (name, email, user_password, session_id, membership)
     values (${body.username}, ${body.email}, ${stringHash(body.password)}, ${cookieID}, ${"tier-1"})`;
     return returnJson("success", "New user created.", response, headers);

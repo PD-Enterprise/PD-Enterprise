@@ -1,8 +1,5 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { neon } from "@neondatabase/serverless";
-
-const sql = neon(
-    "postgresql://neondb_owner:1mHvwMNR2KJS@ep-broad-surf-a1mc50uh.ap-southeast-1.aws.neon.tech/neondb?sslmode=require")
+import { sql } from '../../db.server';
 
 export const GET: RequestHandler = async ({ request }) => {
     const query = await sql`SELECT * FROM posts`;

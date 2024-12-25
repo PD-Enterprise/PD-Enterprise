@@ -3,13 +3,16 @@
 
 	// Imports
 	import SvelteToast from './svelteToast.svelte';
-	import { showToast } from './svelteToastsUtil';
+	import { showToast } from '$lib/utils/svelteToastsUtil';
+	import { showModal } from '$lib/stores/showLoginForm';
+	import { onMount } from 'svelte';
 
 	// Variables
-	let username: string = 'PD';
+	let username: string = '';
 	let email: string;
 	let password: string;
 	let type = $props();
+	let sign: string = '';
 
 	// Functions
 	async function login() {}
@@ -28,10 +31,10 @@
 					})
 				});
 				const result = await response.json();
-				console.log(result);
 				if (result.message == 'User already exists.') {
 					showToast('Error', 'User already exists. Please login.', 5000, 'error');
 				} else if (result.message == 'New user created.') {
+					sessionStorage.setItem('Email', email);
 					showToast('Success', 'User created successfully.', 5000, 'success');
 					goto('/admin-dashboard');
 				}
@@ -42,11 +45,25 @@
 			showToast('Error', 'Please fill all fields.', 5000, 'error');
 		}
 	}
+	function removeFromView() {
+		showModal.set(false);
+	}
+	if (type.type == 'register') {
+		sign = 'Sign up';
+	} else {
+		sign = 'Login';
+	}
 </script>
 
 <SvelteToast />
 
 <form class="card-body">
+	<div class="cart-title inline-flex">
+		<h1 class="text-2xl font-bold">{sign}</h1>
+		<div class="card-actions ml-auto">
+			<a href="/" class="btn" id="close-button" onclick={removeFromView}>X</a>
+		</div>
+	</div>
 	{#if type.type == 'register'}
 		<div class="form-control">
 			<label class="label input-bordered flex items-center gap-2">
