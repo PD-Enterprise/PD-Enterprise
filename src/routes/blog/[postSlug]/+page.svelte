@@ -66,7 +66,7 @@
 				{#if editorVisible}
 					<Editor
 						bind:value={post[0].content}
-						apiKey="vy0yfom8b74patlx3pqq3fsgzs7yo91br84xiy2o6744slrf"
+						apiKey="i0gnsxdotawlh0aflioykbvzvckv55kfarrdfheeqq2g4yrm"
 						channel="7"
 						{conf}
 					/>
