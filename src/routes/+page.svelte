@@ -20,37 +20,12 @@
 	});
 </script>
 
-<div class="main snowfall">
-	<div class="snowflake snowflake-color-dark" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
-	<div class="snowflake snowflake-color-light" id="snowflake"></div>
+<div class="main">
 	<div class="hero-section">
 		<div class="hero min-h-screen">
 			<div class="hero-content flex-col lg:flex-row-reverse">
 				<div id="home">
-					<h8 id="grade-app" class="ml-9 font-bold">
-						<span style="position: relative; display: inline-block;">
-							<img
-								src={santaHat}
-								alt="santa hat"
-								class="santa-hat"
-								style="position: relative; top: 110px; left: -100px;"
-								width="200"
-								height="200"
-							/>
-							PD Enterprise
-						</span>
-					</h8>
+					<h8 id="grade-app" class="font-bold"> PD Enterprise </h8>
 					<p class="pb-4 pt-2" id="homep">Empowering Students. Simplifying Learning.</p>
 					<div class="subheadline">
 						<p>
@@ -143,86 +118,6 @@
 </div>
 
 <style>
-	.snowfall {
-		z-index: auto;
-		inset: 0;
-		overflow: hidden;
-		position: relative;
-	}
-	.snowflake {
-		--small: 3px;
-		--medium: 7px;
-		width: var(--small);
-		height: var(--small);
-		position: absolute;
-		border-radius: 50%;
-		animation:
-			snow 6s linear infinite,
-			wind 10s ease-in-out infinite;
-		top: -10%;
-		left: calc(10% - var(--small));
-	}
-	.snowflake-color-light {
-		background-color: #fff;
-	}
-	.snowflake-color-dark {
-		background-color: #c0b8b8;
-		box-shadow: 0 0 10px #000;
-	}
-	.snowflake:nth-child(2n + 3) {
-		width: var(--medium);
-		height: var(--medium);
-	}
-	.snowflake:nth-child(1) {
-		left: 25%;
-		animation-delay: 1s;
-	}
-	.snowflake:nth-child(2) {
-		left: 85%;
-		animation-delay: 1.5s;
-	}
-	.snowflake:nth-child(3) {
-		left: 30%;
-		animation-delay: 2s;
-	}
-	.snowflake:nth-child(4) {
-		left: 65%;
-		animation-delay: 2.5s;
-	}
-	.snowflake:nth-child(5) {
-		left: 25%;
-		animation-delay: 3s;
-	}
-	.snowflake:nth-child(6) {
-		left: 95%;
-		animation-delay: 3.5s;
-	}
-	.snowflake:nth-child(7) {
-		left: 55%;
-		animation-delay: 4s;
-	}
-	.snowflake:nth-child(8) {
-		left: 10%;
-		animation-delay: 4.5s;
-	}
-	.snowflake:nth-child(9) {
-		left: 70%;
-		animation-delay: 5s;
-	}
-	.snowflake:nth-child(10) {
-		left: 20%;
-		animation-delay: 5.5s;
-	}
-	@keyframes snow {
-		100% {
-			top: 100%;
-		}
-	}
-	@keyframes wind {
-		50% {
-			transform: translateX(120px);
-		}
-	}
 	.title {
 		max-width: 50%;
 	}

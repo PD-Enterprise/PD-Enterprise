@@ -22,7 +22,7 @@
 
 	// function to get Post from Database
 	async function getPost(slug: string) {
-		const response = await fetch('../../api', {
+		const response = await fetch('/api', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ slug: slug })
