@@ -28,7 +28,9 @@
 		flex-direction: column;
 		min-height: 100vh;
 	}
-
+	.navbar {
+		margin-bottom: 40px;
+	}
 	.footer {
 		margin-top: auto;
 	}

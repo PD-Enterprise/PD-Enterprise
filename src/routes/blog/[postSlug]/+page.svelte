@@ -30,9 +30,6 @@
 			}
 		);
 		const result = await response.json();
-		let createdAt = new Date(result.data[0].createdAt);
-		let formattedDate = createdAt.toISOString().split('T')[0];
-		console.log(formattedDate);
 		if (result.status === 200) {
 			post = result.data;
 		} else {
@@ -40,7 +37,7 @@
 		}
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		slug = window.location.href.split('/blog/')[1];
 		getPost(slug);
 
@@ -66,7 +63,7 @@
 			<h1 class="post-title mb-5">{post[0].title}</h1>
 			<p class="mb-2">{formatDate(post[0].createdAt)}</p>
 			<h2>By <b>{post[0].author_id}</b></h2>
-			<div class="content mt-10">
+			<div class="content h-100 mt-10">
 				{#if editorVisible}
 					<Editor
 						bind:value={post[0].content}
@@ -81,9 +78,7 @@
 				{#if error}
 					<h1>{error}</h1>
 				{:else}
-					<center>
-						<h1>Loading Post...</h1>
-					</center>
+					<h1>Loading Post...</h1>
 				{/if}
 			</div>
 		{/if}

@@ -20,7 +20,6 @@
 			}
 		);
 		const result = await response.json();
-		console.log(result);
 		if (result.status === 200) {
 			posts = result.data.sort(
 				(a: Post, b: Post) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
