@@ -3,8 +3,8 @@ type Post = {
     title: string;
     slug: string;
     content: string;
-    author_id: string; 
-    created_at: string;
+    author_id: string;
+    createdAt: string;
 }
 
-export type {Post};
+export type { Post };

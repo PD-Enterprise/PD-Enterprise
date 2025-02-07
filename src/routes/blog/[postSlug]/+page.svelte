@@ -22,13 +22,17 @@
 
 	// function to get Post from Database
 	async function getPost(slug: string) {
-		const response = await fetch('/api', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ slug: slug })
-		});
+		const response = await fetch(
+			`https://backend-service.pdenterprise314.workers.dev/pd-enterprise/blog/posts/${slug}`,
+			{
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' }
+			}
+		);
 		const result = await response.json();
-
+		let createdAt = new Date(result.data[0].createdAt);
+		let formattedDate = createdAt.toISOString().split('T')[0];
+		console.log(formattedDate);
 		if (result.status === 200) {
 			post = result.data;
 		} else {
@@ -60,7 +64,7 @@
 	<div class="post bg-base-200">
 		{#if post.length > 0}
 			<h1 class="post-title mb-5">{post[0].title}</h1>
-			<p class="mb-2">{formatDate(post[0].created_at)}</p>
+			<p class="mb-2">{formatDate(post[0].createdAt)}</p>
 			<h2>By <b>{post[0].author_id}</b></h2>
 			<div class="content mt-10">
 				{#if editorVisible}
