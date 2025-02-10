@@ -32,28 +32,35 @@
 	async function login() {
 		if (email && password) {
 			try {
-				// 			const response = await fetch(`${config.apiUrl}user/login`, {
-				// 				method: 'POST',
-				// 				headers: {
-				// 					'Content-Type': 'application/json'
-				// 				},
-				// 				body: JSON.stringify({
-				// 					email: email,
-				// 					password: password,
-				// 					session_id: cookieValue
-				// 				})
-				// 			});
-				// 			const result = await response.json();
-				// 			console.log(result);
-				// 			if (result.message == 'user not found.') {
-				// 				showToast('Error', 'User not found. Please register.', 5000, 'error');
-				// 			} else if (result.message == 'invalid credentials') {
-				// 				showToast('Error', 'Invalid credentials.', 5000, 'error');
-				// 			} else if (result.message == 'Login successful') {
-				// 				sessionStorage.setItem('Email', email);
-				// 				showToast('Success', 'Successfully logged in.', 5000, 'success');
-				// 				// goto('/admin-dashboard');
-				// 			}
+				const response = await fetch(`${config.apiUrl}users/login`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						email: email,
+						password: password
+					})
+				});
+				const result = await response.json();
+				console.log(result);
+				switch (result.status) {
+					case 200:
+						sessionStorage.setItem('Email', email);
+						const cookie = result.headers['Set-cookie'].split(';')[0];
+						document.cookie = cookie;
+						showToast('Success', 'Successfully logged in.', 5000, 'success');
+						// goto('/admin-dashboard');
+						break;
+					case 401:
+						showToast('Error', 'Invalid credentials.', 5000, 'error');
+						break;
+					case 404:
+						showToast('Error', 'User not found. Please register.', 5000, 'error');
+						break;
+					default:
+						showToast('Error', 'Something went wrong.', 5000, 'error');
+				}
 			} catch (error) {
 				console.error(error);
 				showToast('Error', 'There was an error', 5000, 'error');
@@ -63,7 +70,7 @@
 	async function register() {
 		if (username && email && password) {
 			try {
-				const response = await fetch(`${config.apiUrl}user/register`, {
+				const response = await fetch(`${config.apiUrl}users/register`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -76,12 +83,22 @@
 				});
 				const result = await response.json();
 				console.log(result);
-				if (result.message == 'User already exists') {
-					showToast('Error', 'User already exists. Please login.', 5000, 'error');
-				} else if (result.message == 'User registration successful') {
-					sessionStorage.setItem('Email', email);
-					showToast('Success', 'User created successfully.', 5000, 'success');
-					// goto('/admin-dashboard');
+				switch (result.status) {
+					case 403:
+						showToast('Error', 'User already exists. Please login.', 5000, 'error');
+						break;
+					case 201:
+						sessionStorage.setItem('Email', email);
+						const cookie = result.headers['Set-cookie'].split(';')[0];
+						document.cookie = cookie;
+						showToast('Success', 'User created successfully.', 5000, 'success');
+						// goto('/admin-dashboard');
+						break;
+					case 400:
+						showToast('Error', 'Missing Required fields', 5000, 'error');
+						break;
+					default:
+						showToast('Error', 'Something went wrong.', 5000, 'error');
 				}
 			} catch (error) {
 				console.error(error);
