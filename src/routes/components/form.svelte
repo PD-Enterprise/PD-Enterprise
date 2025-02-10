@@ -50,7 +50,7 @@
 						const cookie = result.headers['Set-cookie'].split(';')[0];
 						document.cookie = cookie;
 						showToast('Success', 'Successfully logged in.', 5000, 'success');
-						// goto('/admin-dashboard');
+						goto('/admin-dashboard');
 						break;
 					case 401:
 						showToast('Error', 'Invalid credentials.', 5000, 'error');
@@ -92,7 +92,7 @@
 						const cookie = result.headers['Set-cookie'].split(';')[0];
 						document.cookie = cookie;
 						showToast('Success', 'User created successfully.', 5000, 'success');
-						// goto('/admin-dashboard');
+						goto('/admin-dashboard');
 						break;
 					case 400:
 						showToast('Error', 'Missing Required fields', 5000, 'error');
