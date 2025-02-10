@@ -7,7 +7,6 @@
 	import { showModal } from '$lib/stores/showLoginForm';
 	import { onMount } from 'svelte';
 	import config from '$lib/utils/apiConfig';
-	import { authClient } from '$lib/utils/auth-client';
 
 	// Variables
 	let username: string = '';
@@ -33,20 +32,6 @@
 	async function login() {
 		if (email && password) {
 			try {
-				// @ts-expect-error
-				const { data, error } = await authClient.signIn.email(
-					{
-						email,
-						password,
-						rememberMe: true
-					},
-					{
-						onRequest: (ctx) => {
-							showToast('Info', 'Logging user in...', 5000, 'info');
-						}
-					}
-				);
-				console.log(data, error);
 				// 			const response = await fetch(`${config.apiUrl}user/login`, {
 				// 				method: 'POST',
 				// 				headers: {
