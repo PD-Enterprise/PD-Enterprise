@@ -38,19 +38,6 @@
 			}
 		});
 
-		const response = await fetch('/api/cookie', {
-			method: 'GET',
-			credentials: 'include'
-		});
-		const result = await response.json();
-		if (result.message == 'success') {
-			cookieValue = result.cookieValue;
-			if (cookieValue) {
-				await renewCookie();
-			}
-		} else {
-			// console.error('Failed to fetch cookie.', result.message);
-		}
 		if (loggedIn) {
 			navbarLoginButtonsElement.classList.add('hidden');
 			menuLoginButtonsElement.classList.add('hidden');
@@ -58,24 +45,9 @@
 			menuDashboardButtonsElement.classList.remove('hidden');
 		}
 	});
-	async function renewCookie() {
-		const response = await fetch('/api/database', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				session_id: cookieValue
-			})
-		});
-		const result = await response.json();
-		if (result.message == 'success') {
-			loggedIn = true;
-		}
-	}
 </script>
 
-<div class="navbar bg-base-300">
+<div class="navbar bg-base-300 p-0">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -234,7 +206,7 @@
 		<a
 			href="#form"
 			class="btn"
-			on:click={() => {
+			on:click={async () => {
 				formMode = 'register';
 				showModal.set(true);
 			}}>Sign up</a

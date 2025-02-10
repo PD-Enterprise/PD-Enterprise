@@ -4,7 +4,8 @@
 	import { onMount } from 'svelte';
 	import { pushState } from '$app/navigation';
 	import type { Post } from '../types';
-	import formatDate from './utils';
+	import formatDate from '$lib/utils/formatDate';
+	import config from '$lib/utils/apiConfig';
 
 	// variables
 	let error: string = '';
@@ -12,17 +13,14 @@
 
 	// function to get Posts from Database
 	async function getPosts() {
-		const response = await fetch(
-			'https://backend-service.pdenterprise314.workers.dev/pd-enterprise/blog/posts',
-			{
-				method: 'GET',
-				headers: { 'Content-Type': 'application/json' }
-			}
-		);
+		const response = await fetch(`${config.apiUrl}pd-enterprise/blog/posts`, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		});
 		const result = await response.json();
 		if (result.status === 200) {
 			posts = result.data.sort(
-				(a: Post, b: Post) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+				(a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 			);
 		} else {
 			error = result.message;
@@ -45,7 +43,7 @@
 						<div class="flex-2 card-actions inline-flex">
 							<div class="author flex-1">
 								By <b>
-									{post.author_id}
+									{post.authorId}
 								</b>
 							</div>
 							<svg

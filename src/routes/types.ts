@@ -3,7 +3,7 @@ type Post = {
     title: string;
     slug: string;
     content: string;
-    author_id: string;
+    authorId: string;
     createdAt: string;
 }
 

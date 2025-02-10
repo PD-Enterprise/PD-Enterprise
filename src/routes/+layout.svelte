@@ -13,7 +13,7 @@
 </script>
 
 <div class="main">
-	<div class="navbar" style:display={$isAdminRoute ? 'none' : 'block'}>
+	<div class="navbar p-0" style:display={$isAdminRoute ? 'none' : 'block'}>
 		<Navbar />
 	</div>
 	{@render children()}

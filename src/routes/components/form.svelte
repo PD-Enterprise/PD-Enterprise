@@ -6,6 +6,8 @@
 	import { showToast } from '$lib/utils/svelteToastsUtil';
 	import { showModal } from '$lib/stores/showLoginForm';
 	import { onMount } from 'svelte';
+	import config from '$lib/utils/apiConfig';
+	import { authClient } from '$lib/utils/auth-client';
 
 	// Variables
 	let username: string = '';
@@ -17,50 +19,66 @@
 
 	// Functions
 	onMount(async () => {
-		const response = await fetch('/api/cookie', {
-			method: 'GET',
-			credentials: 'include'
-		});
-		const result = await response.json();
-		if (result.message == 'success') {
-			cookieValue = result.cookieValue;
-		} else {
-			// console.error('Failed to fetch cookie.', result.message);
-		}
+		// 	const response = await fetch('/api/cookie', {
+		// 		method: 'GET',
+		// 		credentials: 'include'
+		// 	});
+		// 	const result = await response.json();
+		// 	if (result.message == 'success') {
+		// 		cookieValue = result.cookieValue;
+		// 	} else {
+		// 		// console.error('Failed to fetch cookie.', result.message);
+		// 	}
 	});
 	async function login() {
 		if (email && password) {
 			try {
-				const response = await fetch('/api/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
+				// @ts-expect-error
+				const { data, error } = await authClient.signIn.email(
+					{
+						email,
+						password,
+						rememberMe: true
 					},
-					body: JSON.stringify({
-						email: email,
-						password: password,
-						session_id: cookieValue
-					})
-				});
-				const result = await response.json();
-				if (result.message == 'user not found.') {
-					showToast('Error', 'User not found. Please register.', 5000, 'error');
-				} else if (result.message == 'invalid credentials.') {
-					showToast('Error', 'Invalid credentials.', 5000, 'error');
-				} else if (result.message == 'success') {
-					sessionStorage.setItem('Email', email);
-					showToast('Success', 'Successfully logged in.', 5000, 'success');
-					goto('/admin-dashboard');
-				}
+					{
+						onRequest: (ctx) => {
+							showToast('Info', 'Logging user in...', 5000, 'info');
+						}
+					}
+				);
+				console.log(data, error);
+				// 			const response = await fetch(`${config.apiUrl}user/login`, {
+				// 				method: 'POST',
+				// 				headers: {
+				// 					'Content-Type': 'application/json'
+				// 				},
+				// 				body: JSON.stringify({
+				// 					email: email,
+				// 					password: password,
+				// 					session_id: cookieValue
+				// 				})
+				// 			});
+				// 			const result = await response.json();
+				// 			console.log(result);
+				// 			if (result.message == 'user not found.') {
+				// 				showToast('Error', 'User not found. Please register.', 5000, 'error');
+				// 			} else if (result.message == 'invalid credentials') {
+				// 				showToast('Error', 'Invalid credentials.', 5000, 'error');
+				// 			} else if (result.message == 'Login successful') {
+				// 				sessionStorage.setItem('Email', email);
+				// 				showToast('Success', 'Successfully logged in.', 5000, 'success');
+				// 				// goto('/admin-dashboard');
+				// 			}
 			} catch (error) {
 				console.error(error);
+				showToast('Error', 'There was an error', 5000, 'error');
 			}
 		}
 	}
 	async function register() {
 		if (username && email && password) {
 			try {
-				const response = await fetch('/api/register', {
+				const response = await fetch(`${config.apiUrl}user/register`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -72,15 +90,17 @@
 					})
 				});
 				const result = await response.json();
-				if (result.message == 'User already exists.') {
+				console.log(result);
+				if (result.message == 'User already exists') {
 					showToast('Error', 'User already exists. Please login.', 5000, 'error');
-				} else if (result.message == 'New user created.') {
+				} else if (result.message == 'User registration successful') {
 					sessionStorage.setItem('Email', email);
 					showToast('Success', 'User created successfully.', 5000, 'success');
-					goto('/admin-dashboard');
+					// goto('/admin-dashboard');
 				}
 			} catch (error) {
 				console.error(error);
+				showToast('Error', 'There was an error', 5000, 'error');
 			}
 		} else {
 			showToast('Error', 'Please fill all fields.', 5000, 'error');

@@ -2,9 +2,10 @@
 	// imports
 	import { onMount } from 'svelte';
 	import type { Post } from '../../types';
-	import formatDate from '../utils';
+	import formatDate from '$lib/utils/formatDate';
 	import Editor from '@tinymce/tinymce-svelte';
 	import { theme } from '$lib/stores/theme';
+	import config from '$lib/utils/apiConfig';
 
 	// variables
 	let slug: string = '';
@@ -22,13 +23,10 @@
 
 	// function to get Post from Database
 	async function getPost(slug: string) {
-		const response = await fetch(
-			`https://backend-service.pdenterprise314.workers.dev/pd-enterprise/blog/posts/${slug}`,
-			{
-				method: 'GET',
-				headers: { 'Content-Type': 'application/json' }
-			}
-		);
+		const response = await fetch(`${config.apiUrl}pd-enterprise/blog/posts/${slug}`, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		});
 		const result = await response.json();
 		if (result.status === 200) {
 			post = result.data;
@@ -62,7 +60,7 @@
 		{#if post.length > 0}
 			<h1 class="post-title mb-5">{post[0].title}</h1>
 			<p class="mb-2">{formatDate(post[0].createdAt)}</p>
-			<h2>By <b>{post[0].author_id}</b></h2>
+			<h2>By <b>{post[0].authorId}</b></h2>
 			<div class="content h-100 mt-10">
 				{#if editorVisible}
 					<Editor
