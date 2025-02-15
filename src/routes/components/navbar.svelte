@@ -6,10 +6,10 @@
 	import Form from './form.svelte';
 	import { goto } from '$app/navigation';
 	import { showModal } from '$lib/stores/showLoginForm';
+	import { loggedIn } from '$lib/stores/loggedIn';
 
 	// Variables
 	let cookieValue: string;
-	let loggedIn: boolean = false;
 	let formMode: 'register' | 'login' = 'register';
 
 	// Functions
@@ -38,7 +38,7 @@
 			}
 		});
 
-		if (loggedIn) {
+		if ($loggedIn) {
 			navbarLoginButtonsElement.classList.add('hidden');
 			menuLoginButtonsElement.classList.add('hidden');
 			navbarDashboardButtonsElement.classList.remove('hidden');

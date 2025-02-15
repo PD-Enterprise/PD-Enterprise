@@ -18,16 +18,16 @@
 
 	// Functions
 	onMount(async () => {
-		// 	const response = await fetch('/api/cookie', {
-		// 		method: 'GET',
-		// 		credentials: 'include'
-		// 	});
-		// 	const result = await response.json();
-		// 	if (result.message == 'success') {
-		// 		cookieValue = result.cookieValue;
-		// 	} else {
-		// 		// console.error('Failed to fetch cookie.', result.message);
-		// 	}
+		const response = await fetch('/api/cookie', {
+			method: 'GET',
+			credentials: 'include'
+		});
+		const result = await response.json();
+		if (result.message == 'success') {
+			cookieValue = result.cookieValue;
+		} else {
+			// console.error('Failed to fetch cookie.', result.message);
+		}
 	});
 	async function login() {
 		if (email && password) {

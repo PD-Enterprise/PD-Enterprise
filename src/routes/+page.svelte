@@ -1,23 +1,5 @@
 <script lang="ts">
 	import aboutUsImage from './images/students-studying-image.jpg';
-	import santaHat from './images/santa-hat.png';
-	import { theme } from '$lib/stores/theme';
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		theme.subscribe((value) => {
-			const snowflakes = document.querySelectorAll('.snowflake');
-			snowflakes.forEach((snowflake) => {
-				if (value) {
-					snowflake.classList.remove('snowflake-color-light');
-					snowflake.classList.add('snowflake-color-dark');
-				} else {
-					snowflake.classList.remove('snowflake-color-dark');
-					snowflake.classList.add('snowflake-color-light');
-				}
-			});
-		});
-	});
 </script>
 
 <div class="main">

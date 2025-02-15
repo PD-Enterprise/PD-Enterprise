@@ -12,7 +12,7 @@ export async function GET({ request }) {
                 return [name, decodeURIComponent(value)];
             }));
 
-            const cookieValue = parsedCookies.Session_id;
+            const cookieValue = parsedCookies.session_id;
 
             if (cookieValue) {
                 return json({ status: 200, message: "success", cookieValue });
