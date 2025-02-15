@@ -7,28 +7,17 @@
 	import { showModal } from '$lib/stores/showLoginForm';
 	import { onMount } from 'svelte';
 	import config from '$lib/utils/apiConfig';
+	import { loggedIn } from '$lib/stores/loggedIn';
 
 	// Variables
-	let username: string = '';
-	let email: string;
-	let password: string;
+	let username: string = $state('');
+	let email: string = $state('');
+	let password: string = $state('');
 	let type = $props();
-	let sign: string = '';
+	let sign: string = $state('');
 	let cookieValue: string;
 
 	// Functions
-	onMount(async () => {
-		const response = await fetch('/api/cookie', {
-			method: 'GET',
-			credentials: 'include'
-		});
-		const result = await response.json();
-		if (result.message == 'success') {
-			cookieValue = result.cookieValue;
-		} else {
-			// console.error('Failed to fetch cookie.', result.message);
-		}
-	});
 	async function login() {
 		if (email && password) {
 			try {
@@ -46,6 +35,7 @@
 				console.log(result);
 				switch (result.status) {
 					case 200:
+						loggedIn.set(true);
 						sessionStorage.setItem('Email', email);
 						const cookie = result.headers['Set-cookie'].split(';')[0];
 						document.cookie = cookie;
