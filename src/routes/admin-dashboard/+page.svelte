@@ -1,13 +1,32 @@
-<center class="mb-5 mt-5">
-	<h1>This is the admin dashboard.</h1>
-	<h2>Coming Soon...</h2>
-</center>
+<script>
+	import { goto } from '$app/navigation';
+	import { isAuthenticated, user, auth0Client } from '$lib/stores/store';
+	import auth from '$lib/utils/authService';
 
-<style>
-	h1 {
-		font-size: 3rem;
+	let userData;
+
+	user.subscribe((value) => {
+		userData = value;
+		// console.log(userData);
+	});
+	function logout() {
+		auth.logout($auth0Client);
+		goto('/');
 	}
-	h2 {
-		font-size: 2rem;
-	}
-</style>
+</script>
+
+{#if $isAuthenticated}
+	<center>
+		{#if userData}
+			<img src={userData.picture} alt="user-profile" class="h-20 w-20 rounded-full" />
+			<p class="text-xl font-bold">Welcome {userData.name}</p>
+		{/if}
+		<button class="btn btn-error mt-5 w-auto" on:click={logout}>Logout</button>
+	</center>
+{:else}
+	<p>You are not logged in</p>
+	<p>
+		Please
+		<a href="/login">Login</a> to access the admin dashboard.
+	</p>
+{/if}

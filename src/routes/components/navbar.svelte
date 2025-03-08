@@ -50,9 +50,6 @@
 	function login() {
 		auth.loginWithPopup($auth0Client, {});
 	}
-	function logout() {
-		auth.logout($auth0Client);
-	}
 </script>
 
 <div class="navbar bg-base-300 p-0">
