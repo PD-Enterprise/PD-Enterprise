@@ -4,10 +4,10 @@
 	import auth from '$lib/utils/authService';
 
 	let userData;
-
 	user.subscribe((value) => {
 		userData = value;
-		// console.log(userData);
+
+		console.log(userData);
 	});
 	function logout() {
 		auth.logout($auth0Client);
