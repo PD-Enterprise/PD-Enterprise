@@ -1,4 +1,4 @@
-import {loggedIn} from "$lib/stores/loggedIn";
+import { loggedIn } from "$lib/stores/store";
 import config from '$lib/utils/apiConfig';
 
 export async function renewSession(cookieValue: string) {
@@ -10,13 +10,13 @@ export async function renewSession(cookieValue: string) {
         body: JSON.stringify({
             sessionId: cookieValue
         })
-    }) 
+    })
     const result = await response.json();
     if (result.status == 200) {
         const cookie = result.headers['Set-cookie'].split(';')[0];
-		document.cookie = cookie;
+        document.cookie = cookie;
         loggedIn.set(true);
-        sessionStorage.setItem("LoggedIn", true);
+        sessionStorage.setItem("LoggedIn", "true");
         sessionStorage.setItem("Email", result.data.email);
     } else {
         loggedIn.set(false);

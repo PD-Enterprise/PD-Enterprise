@@ -7,6 +7,8 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { renewSession } from '$lib/utils/renewSession';
+	import auth from '$lib/utils/authService';
+	import { isAuthenticated, user, auth0Client } from '$lib/stores/store';
 
 	// Variables
 	let { children } = $props();
@@ -17,17 +19,10 @@
 		return $page.url.pathname.startsWith('/admin-dashboard');
 	});
 	onMount(async () => {
-		const response = await fetch('/api/cookie', {
-			method: 'GET',
-			credentials: 'include'
-		});
-		if (response.ok) {
-			const result = await response.json();
-			cookieValue = result.cookieValue;
-			if (cookieValue) {
-				renewSession(cookieValue);
-			}
-		}
+		const client = await auth.createClient();
+		auth0Client.set(client);
+		isAuthenticated.set(await $auth0Client.isAuthenticated());
+		user.set(await $auth0Client.getUser());
 	});
 </script>
 

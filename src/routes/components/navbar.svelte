@@ -1,12 +1,12 @@
 <script lang="ts">
 	// Imports
 	import logo from '../images/logo.png';
-	import { theme } from '$lib/stores/theme';
+	import { theme } from '$lib/stores/store';
 	import { onMount } from 'svelte';
-	import Form from './form.svelte';
 	import { goto } from '$app/navigation';
-	import { showModal } from '$lib/stores/showLoginForm';
-	import { loggedIn } from '$lib/stores/loggedIn';
+	import { showModal } from '$lib/stores/store';
+	import auth from '$lib/utils/authService';
+	import { isAuthenticated, auth0Client } from '$lib/stores/store';
 
 	// Variables
 	let cookieValue: string;
@@ -38,13 +38,20 @@
 			}
 		});
 
-		if ($loggedIn) {
+		if ($isAuthenticated) {
 			navbarLoginButtonsElement.classList.add('hidden');
 			menuLoginButtonsElement.classList.add('hidden');
 			navbarDashboardButtonsElement.classList.remove('hidden');
 			menuDashboardButtonsElement.classList.remove('hidden');
 		}
 	});
+
+	function login() {
+		auth.loginWithPopup($auth0Client, {});
+	}
+	function logout() {
+		auth.logout($auth0Client);
+	}
 </script>
 
 <div class="navbar bg-base-300 p-0">
@@ -116,24 +123,10 @@
 
 				<div class="menu-buttons menu-login-buttons" id="menu-login-buttons">
 					<li class="mb-2">
-						<a
-							class="btn btn-accent"
-							href="#form"
-							on:click={() => {
-								formMode = 'login';
-								showModal.set(true);
-							}}>Login</a
-						>
+						<a class="btn btn-accent" href="#form" on:click={login}>Login</a>
 					</li>
 					<li>
-						<a
-							class="btn"
-							href="#form"
-							on:click={() => {
-								formMode = 'register';
-								showModal.set(true);
-							}}>Sign up</a
-						>
+						<a class="btn" href="#form" on:click={login}>Sign up</a>
 					</li>
 				</div>
 				<div class="menu-button-dashboard hidden" id="menu-button-dashboard">
@@ -195,22 +188,8 @@
 		</ul>
 	</div>
 	<div class="navbar-buttons navbar-login-buttons navbar-end mr-2 gap-2" id="navbar-login-buttons">
-		<a
-			class="btn btn-accent"
-			href="#form"
-			on:click={() => {
-				formMode = 'login';
-				showModal.set(true);
-			}}>Login</a
-		>
-		<a
-			href="#form"
-			class="btn"
-			on:click={async () => {
-				formMode = 'register';
-				showModal.set(true);
-			}}>Sign up</a
-		>
+		<a class="btn btn-accent" href="#form" on:click={login}>Login</a>
+		<a href="#form" class="btn" on:click={login}>Sign up</a>
 	</div>
 	<div class="navbar-buttons navbar-end mr-2 hidden gap-2" id="navbar-button-dashboard">
 		<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>

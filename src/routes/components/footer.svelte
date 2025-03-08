@@ -1,6 +1,6 @@
 <script lang="ts">
 	import logo from '../images/logo.png'; //imports logo image from images
-	import { theme } from '$lib/stores/theme';
+	import { theme } from '$lib/stores/store';
 	import { onMount } from 'svelte';
 
 	onMount(() => {

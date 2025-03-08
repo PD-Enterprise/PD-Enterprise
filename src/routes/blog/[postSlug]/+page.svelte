@@ -4,8 +4,8 @@
 	import type { Post } from '../../types';
 	import formatDate from '$lib/utils/formatDate';
 	import Editor from '@tinymce/tinymce-svelte';
-	import { theme } from '$lib/stores/theme';
-	import config from '$lib/utils/apiConfig';
+	import { theme } from '$lib/stores/store';
+	import apiConfig from '$lib/utils/apiConfig';
 
 	// variables
 	let slug: string = '';
@@ -23,7 +23,7 @@
 
 	// function to get Post from Database
 	async function getPost(slug: string) {
-		const response = await fetch(`${config.apiUrl}pd-enterprise/blog/posts/${slug}`, {
+		const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts/${slug}`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' }
 		});

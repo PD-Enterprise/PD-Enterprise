@@ -5,7 +5,7 @@
 	import { pushState } from '$app/navigation';
 	import type { Post } from '../types';
 	import formatDate from '$lib/utils/formatDate';
-	import config from '$lib/utils/apiConfig';
+	import apiConfig from '$lib/utils/apiConfig';
 
 	// variables
 	let error: string = '';
@@ -13,7 +13,7 @@
 
 	// function to get Posts from Database
 	async function getPosts() {
-		const response = await fetch(`${config.apiUrl}pd-enterprise/blog/posts`, {
+		const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' }
 		});
