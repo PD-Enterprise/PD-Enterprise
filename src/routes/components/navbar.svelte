@@ -37,13 +37,14 @@
 				}
 			}
 		});
-
-		if ($isAuthenticated) {
-			navbarLoginButtonsElement.classList.add('hidden');
-			menuLoginButtonsElement.classList.add('hidden');
-			navbarDashboardButtonsElement.classList.remove('hidden');
-			menuDashboardButtonsElement.classList.remove('hidden');
-		}
+		isAuthenticated.subscribe((value) => {
+			if (value) {
+				navbarLoginButtonsElement.classList.add('hidden');
+				menuLoginButtonsElement.classList.add('hidden');
+				navbarDashboardButtonsElement.classList.remove('hidden');
+				menuDashboardButtonsElement.classList.remove('hidden');
+			}
+		});
 	});
 
 	function login() {
@@ -123,10 +124,10 @@
 
 				<div class="menu-buttons menu-login-buttons" id="menu-login-buttons">
 					<li class="mb-2">
-						<a class="btn btn-accent" href="#form" on:click={login}>Login</a>
+						<button class="btn btn-accent" on:click={login}>Login</button>
 					</li>
 					<li>
-						<a class="btn" href="#form" on:click={login}>Sign up</a>
+						<button class="btn" on:click={login}>Sign up</button>
 					</li>
 				</div>
 				<div class="menu-button-dashboard hidden" id="menu-button-dashboard">
@@ -188,21 +189,13 @@
 		</ul>
 	</div>
 	<div class="navbar-buttons navbar-login-buttons navbar-end mr-2 gap-2" id="navbar-login-buttons">
-		<a class="btn btn-accent" href="#form" on:click={login}>Login</a>
-		<a href="#form" class="btn" on:click={login}>Sign up</a>
+		<button class="btn btn-accent" on:click={login}>Login</button>
+		<button class="btn" on:click={login}>Sign up</button>
 	</div>
 	<div class="navbar-buttons navbar-end mr-2 hidden gap-2" id="navbar-button-dashboard">
 		<a class="btn btn-accent" href="/admin-dashboard">Dashboard</a>
 	</div>
 </div>
-
-{#if $showModal}
-	<div class="modal modal-bottom sm:modal-middle" role="dialog" id="form">
-		<div class="modal-box">
-			<Form type={formMode} />
-		</div>
-	</div>
-{/if}
 
 <style>
 	:root {

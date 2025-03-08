@@ -6,7 +6,6 @@
 	import Footer from './components/footer.svelte';
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { renewSession } from '$lib/utils/renewSession';
 	import auth from '$lib/utils/authService';
 	import { isAuthenticated, user, auth0Client } from '$lib/stores/store';
 
