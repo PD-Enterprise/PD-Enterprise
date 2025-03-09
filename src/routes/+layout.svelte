@@ -23,7 +23,7 @@
 		auth0Client.set(client);
 		isAuthenticated.set(await $auth0Client.isAuthenticated());
 		user.set(await $auth0Client.getUser());
-		const request = await fetch(`${apiConfig.apiUrl}users/get-role`, {
+		const request = await fetch(`${apiConfig.apiUrl}users/roles/get-role`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -34,6 +34,7 @@
 			})
 		});
 		const result = await request.json();
+		console.log(result);
 		localStorage.setItem('role', result.data);
 	});
 </script>

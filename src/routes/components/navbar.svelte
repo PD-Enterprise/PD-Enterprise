@@ -1,12 +1,13 @@
 <script lang="ts">
 	// Imports
 	import logo from '../images/logo.png';
-	import { theme } from '$lib/stores/store';
+	import { theme, user } from '$lib/stores/store';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { showModal } from '$lib/stores/store';
 	import auth from '$lib/utils/authService';
 	import { isAuthenticated, auth0Client } from '$lib/stores/store';
+	import apiConfig from '$lib/utils/apiConfig';
 
 	// Variables
 	let cookieValue: string;
