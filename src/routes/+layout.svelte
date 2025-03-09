@@ -34,7 +34,6 @@
 			})
 		});
 		const result = await request.json();
-		console.log(result);
 		localStorage.setItem('role', result.data);
 	});
 </script>
