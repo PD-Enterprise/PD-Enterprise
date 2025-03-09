@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import auth from '$lib/utils/authService';
 	import { isAuthenticated, user, auth0Client } from '$lib/stores/store';
+	import apiConfig from '$lib/utils/apiConfig';
 
 	// Variables
 	let { children } = $props();
@@ -22,6 +23,18 @@
 		auth0Client.set(client);
 		isAuthenticated.set(await $auth0Client.isAuthenticated());
 		user.set(await $auth0Client.getUser());
+		const request = await fetch(`${apiConfig.apiUrl}users/get-role`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				// @ts-expect-error
+				email: $user.email
+			})
+		});
+		const result = await request.json();
+		localStorage.setItem('role', result.data);
 	});
 </script>
 
