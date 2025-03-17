@@ -10,114 +10,93 @@
 	// variables
 	let error: string = '';
 	let posts: Post[] = [];
+	let isLoading = true;
+	let isLoaded = false;
 
 	// function to get Posts from Database
 	async function getPosts() {
-		const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
-		});
-		const result = await response.json();
-		if (result.status === 200) {
-			posts = result.data.sort(
-				(a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-			);
-		} else {
-			error = result.message;
+		try {
+			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' }
+			});
+			const result = await response.json();
+			if (result.status === 200) {
+				posts = result.data.sort(
+					(a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+				);
+				setTimeout(() => {
+					isLoaded = true;
+				}, 100);
+			} else {
+				error = result.message || 'Failed to fetch posts';
+			}
+		} catch (err) {
+			error = 'Failed to connect to the server';
+		} finally {
+			isLoading = false;
 		}
 	}
+
 	onMount(() => {
 		getPosts();
 	});
 </script>
 
-<div class="main">
-	<div class="posts">
-		{#if posts.length > 0}
-			{#each posts as post}
-				<a class="post card m-5 w-96 bg-base-200 shadow-xl" href="/blog/{post.slug}">
-					<div class="card-body">
-						<div class="title">
-							<h1 class="card-title">{post.title}</h1>
-						</div>
-						<div class="flex-2 card-actions inline-flex">
-							<div class="author flex-1">
-								By <b>
-									{post.authorId}
-								</b>
+<div class="container mx-auto px-4 py-8">
+	<div class="posts" class:fade-in={isLoaded}>
+		{#if isLoading}
+			<div class="flex justify-center items-center min-h-[400px]">
+				<span class="loading loading-spinner loading-lg"></span>
+			</div>
+		{:else if error}
+			<div class="alert alert-error">
+				<span>{error}</span>
+			</div>
+		{:else if posts.length > 0}
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{#each posts as post}
+					<a class="post card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300" href="/blog/{post.slug}">
+						<div class="card-body">
+							<div class="title">
+								<h2 class="card-title text-xl">{post.title}</h2>
 							</div>
-							<svg
-								width="25px"
-								viewBox="0 0 512 512"
-								version="1.1"
-								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink"
-							>
-								<title>arrow-right</title>
-								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									<g id="add" fill="#000000" transform="translate(106.680107, 134.255147)">
-										<polygon
-											id="arrow-right"
-											points="1.42108547e-14 143.073067 216.973013 143.073067 146.7232 213.32288 176.889813 243.489707 298.639787 121.739733 176.889813 0 146.7232 30.1668267 216.970453 100.4064 1.42108547e-14 100.4064"
-										>
-										</polygon>
-									</g>
-								</g>
-							</svg>
+							<div class="flex flex-col gap-2 mt-4">
+								<div class="text-sm text-gray-500">
+									By <span class="font-semibold">{post.authorId}</span>
+								</div>
+								<div class="text-sm text-gray-500">
+									{formatDate(post.createdAt)}
+								</div>
+							</div>
+							<div class="card-actions justify-end mt-4">
+								<button class="btn btn-primary btn-sm">Read More</button>
+							</div>
 						</div>
-					</div>
-				</a>
-			{/each}
+					</a>
+				{/each}
+			</div>
 		{:else}
-			<div class="post">
-				{#if error}
-					<h1>{error}</h1>
-				{:else}
-					<center>
-						<h1>Loading posts...</h1>
-					</center>
-				{/if}
+			<div class="text-center py-12">
+				<h2 class="text-2xl font-semibold text-gray-600">No posts found</h2>
+				<p class="text-gray-500 mt-2">Check back later for new content!</p>
 			</div>
 		{/if}
 	</div>
 </div>
 
 <style>
-	h1 {
-		font-size: 1.5em;
-	}
 	.posts {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 1em;
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
 	}
-	.card-body {
-		display: flex;
-		flex-direction: column;
-		min-height: 400px;
-		justify-content: space-between;
+	.posts.fade-in {
+		opacity: 1;
 	}
 	.post {
-		transition:
-			transform 0.3s,
-			box-shadow 0.3s;
-		min-width: 300px;
-	}
-	svg {
-		transition: transform 0.3s;
+		transition: all 0.3s ease-in-out;
 	}
 	.post:hover {
 		transform: translateY(-5px);
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-		.card-title {
-			text-decoration: underline;
-		}
-		svg {
-			transform: translateX(10px);
-		}
-		svg g {
-			fill: #1a73e8;
-		}
 	}
 </style>
