@@ -6,17 +6,15 @@
 	import Editor from '@tinymce/tinymce-svelte';
 	import { theme } from '$lib/stores/store';
 	import apiConfig from '$lib/utils/apiConfig';
+	import { TINYMCE_API_KEY, getEditorConfig } from '$lib/utils/tinymceConfig';
 
 	// variables
 	let slug: string = '';
 	let post: Post[] = [];
 	let error: string = '';
 	let conf = {
+		...getEditorConfig(apiConfig.apiUrl),
 		height: 700,
-		menubar: false,
-		shortcuts: false,
-		skin: 'oxide-dark',
-		content_css: 'dark',
 		editable_root: false,
 		readonly: true
 	};
@@ -111,7 +109,7 @@
 				{#if editorVisible}
 					<Editor
 						bind:value={post[0].content}
-						apiKey="your-tinymce-api-key"
+						apiKey={TINYMCE_API_KEY}
 						{conf}
 					/>
 				{/if}

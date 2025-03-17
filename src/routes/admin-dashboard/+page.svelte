@@ -6,6 +6,7 @@
 	import type { Post } from '../types';
 	import apiConfig from '$lib/utils/apiConfig';
 	import Editor from '@tinymce/tinymce-svelte';
+	import { TINYMCE_API_KEY, getEditorConfig } from '$lib/utils/tinymceConfig';
 
 	let userData;
 	let posts: Post[] = [];
@@ -21,28 +22,7 @@
 		image: '',
 		slug: ''
 	};
-	let editorConfig = {
-		height: 400,
-		menubar: false,
-		plugins: 'image code table lists link',
-		toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
-		images_upload_url: `${apiConfig.apiUrl}pd-enterprise/upload`,
-		images_upload_handler: async function (blobInfo: any) {
-			const formData = new FormData();
-			formData.append('file', blobInfo.blob(), blobInfo.filename());
-			try {
-				const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/upload`, {
-					method: 'POST',
-					body: formData
-				});
-				const result = await response.json();
-				return result.url;
-			} catch (err) {
-				console.error('Upload failed:', err);
-				return '';
-			}
-		}
-	};
+	let editorConfig = getEditorConfig(apiConfig.apiUrl);
 
 	user.subscribe((value) => {
 		userData = value;
@@ -310,7 +290,11 @@
 					<label class="label">
 						<span class="label-text">Content</span>
 					</label>
-					<Editor bind:value={newPost.content} apiKey="your-tinymce-api-key" {editorConfig} />
+					<Editor 
+						bind:value={newPost.content} 
+						apiKey={TINYMCE_API_KEY} 
+						{editorConfig} 
+					/>
 				</div>
 				<div class="modal-action">
 					<button class="btn" on:click={() => showNewPostModal = false}>Cancel</button>
@@ -341,7 +325,11 @@
 					<label class="label">
 						<span class="label-text">Content</span>
 					</label>
-					<Editor bind:value={selectedPost.content} apiKey="your-tinymce-api-key" {editorConfig} />
+					<Editor 
+						bind:value={selectedPost.content} 
+						apiKey={TINYMCE_API_KEY} 
+						{editorConfig} 
+					/>
 				</div>
 				<div class="modal-action">
 					<button class="btn" on:click={() => showEditModal = false}>Cancel</button>
