@@ -16,19 +16,19 @@
 	// function to get Posts from Database
 	async function getPosts() {
 		try {
-			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
-				method: 'GET',
-				headers: { 'Content-Type': 'application/json' }
-			});
-			const result = await response.json();
-			if (result.status === 200) {
-				posts = result.data.sort(
-					(a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-				);
+		const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		});
+		const result = await response.json();
+		if (result.status === 200) {
+			posts = result.data.sort(
+				(a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+			);
 				setTimeout(() => {
 					isLoaded = true;
 				}, 100);
-			} else {
+		} else {
 				error = result.message || 'Failed to fetch posts';
 			}
 		} catch (err) {
@@ -44,6 +44,7 @@
 </script>
 
 <div class="container mx-auto px-4 py-8">
+	<h1 class="text-4xl font-bold mb-8 text-center">Blog Posts</h1>
 	<div class="posts" class:fade-in={isLoaded}>
 		{#if isLoading}
 			<div class="flex justify-center items-center min-h-[400px]">
@@ -55,8 +56,18 @@
 			</div>
 		{:else if posts.length > 0}
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				{#each posts as post}
+			{#each posts as post}
 					<a class="post card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300" href="/blog/{post.slug}">
+						{#if post.image}
+							<figure>
+								<img
+									src={post.image}
+									alt={post.title}
+									class="w-full h-48 object-cover"
+									loading="lazy"
+								/>
+							</figure>
+						{/if}
 						<div class="card-body">
 							<div class="title">
 								<h2 class="card-title text-xl">{post.title}</h2>
@@ -74,7 +85,7 @@
 							</div>
 						</div>
 					</a>
-				{/each}
+			{/each}
 			</div>
 		{:else}
 			<div class="text-center py-12">

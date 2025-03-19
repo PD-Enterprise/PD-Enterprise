@@ -24,15 +24,15 @@
 	// function to get Post from Database
 	async function getPost(slug: string) {
 		try {
-			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts/${slug}`, {
-				method: 'GET',
-				headers: { 'Content-Type': 'application/json' }
-			});
-			const result = await response.json();
-			if (result.status === 200) {
-				post = result.data;
-			} else {
-				error = result.message;
+		const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts/${slug}`, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		});
+		const result = await response.json();
+		if (result.status === 200) {
+			post = result.data;
+		} else {
+			error = result.message;
 			}
 		} catch (err) {
 			error = 'Failed to fetch post';
@@ -138,14 +138,14 @@
 				</div>
 			</footer>
 		</article>
-	{:else}
+		{:else}
 		<div class="container mx-auto px-4 py-8">
 			<div class="text-center">
 				<h2 class="text-2xl font-semibold text-gray-600">Post not found</h2>
 				<p class="text-gray-500 mt-2">The post you're looking for doesn't exist or has been removed.</p>
 			</div>
-		</div>
-	{/if}
+			</div>
+		{/if}
 </div>
 
 <style>

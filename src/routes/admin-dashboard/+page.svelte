@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation'; // Function to navigate to different routes
 	import { isAuthenticated, user, auth0Client } from '$lib/stores/store';
 	import auth from '$lib/utils/authService';
 	import { onMount } from 'svelte';
@@ -33,7 +33,7 @@
 		goto('/');
 	}
 
-	async function getPosts() {
+	async function getPosts() { // Fetches the list of blog posts from the API
 		try {
 			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
 				method: 'GET',
@@ -52,7 +52,12 @@
 		}
 	}
 
-	async function createPost() {
+	async function createPost() { // Creates a new blog post using the API, restricted to admins
+		const currentUser = $user; // Assuming user store contains user information
+		if (!currentUser.role || currentUser.role !== 'admin') {
+			alert('Only admins can create blog posts.');
+			return;
+		}
 		try {
 			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts`, {
 				method: 'POST',
@@ -75,7 +80,7 @@
 		}
 	}
 
-	async function updatePost() {
+	async function updatePost() { // Updates an existing blog post using the API
 		if (!selectedPost) return;
 		try {
 			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts/${selectedPost.slug}`, {
@@ -96,7 +101,7 @@
 		}
 	}
 
-	async function deletePost(slug: string) {
+	async function deletePost(slug: string) { // Deletes a blog post based on its slug
 		if (!confirm('Are you sure you want to delete this post?')) return;
 		try {
 			const response = await fetch(`${apiConfig.apiUrl}pd-enterprise/blog/posts/${slug}`, {
@@ -113,7 +118,7 @@
 		}
 	}
 
-	function editPost(post: Post) {
+	function editPost(post: Post) { // Prepares the selected post for editing
 		selectedPost = { ...post };
 		showEditModal = true;
 	}
@@ -290,11 +295,11 @@
 					<label class="label">
 						<span class="label-text">Content</span>
 					</label>
-					<Editor 
-						bind:value={newPost.content} 
-						apiKey={TINYMCE_API_KEY} 
-						{editorConfig} 
-					/>
+<Editor 
+    bind:value={newPost.content} 
+    apiKey={TINYMCE_API_KEY} 
+/>
+
 				</div>
 				<div class="modal-action">
 					<button class="btn" on:click={() => showNewPostModal = false}>Cancel</button>
@@ -325,11 +330,11 @@
 					<label class="label">
 						<span class="label-text">Content</span>
 					</label>
-					<Editor 
-						bind:value={selectedPost.content} 
-						apiKey={TINYMCE_API_KEY} 
-						{editorConfig} 
-					/>
+<Editor 
+    bind:value={selectedPost.content} 
+    apiKey={TINYMCE_API_KEY} 
+/>
+
 				</div>
 				<div class="modal-action">
 					<button class="btn" on:click={() => showEditModal = false}>Cancel</button>
