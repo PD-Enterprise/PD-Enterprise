@@ -17,8 +17,9 @@
 						</p>
 					</div>
 					<div class="buttons">
-						<a class="explore btn btn-primary" href="#products">Explore Our Applications</a>
+						<a class="explore btn btn-primary" href="/projects">Explore Our Applications</a>
 						<a class="blog btn btn-primary" href="/blog">Check out our Blog</a>
+
 					</div>
 				</div>
 			</div>

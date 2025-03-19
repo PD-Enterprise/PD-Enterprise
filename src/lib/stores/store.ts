@@ -7,6 +7,7 @@ export const loggedIn = writable(false);
 // Auth
 export const auth0Client = writable(null);
 export const isAuthenticated = writable(false);
-export const user = writable({});
+export const user = writable<{ id: string; name: string; email: string; role?: string }>({});//added strings
+
 export const popupOpen = writable(false);
 export const error = writable();
