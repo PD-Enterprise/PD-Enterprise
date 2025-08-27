@@ -1,0 +1,96 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer base {
+    :root {
+        /* Updated color tokens to match cnotes design brief */
+        --background: 0 0% 100%;
+        --foreground: 210 24% 16%;
+        --card: 214 32% 91%;
+        --card-foreground: 210 24% 16%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 210 24% 16%;
+        --primary: 210 24% 16%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 262 83% 58%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 215 16% 47%;
+        --muted-foreground: 0 0% 100%;
+        --accent: 262 83% 58%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 25 95% 53%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 220 13% 91%;
+        --input: 214 32% 91%;
+        --ring: 262 83% 58%;
+        --chart-1: 45 93% 58%;
+        --chart-2: 142 76% 73%;
+        --chart-3: 217 91% 60%;
+        --chart-4: 271 81% 56%;
+        --chart-5: 347 77% 50%;
+        --radius: 0.5rem;
+        --sidebar-background: 214 32% 91%;
+        --sidebar-foreground: 210 24% 16%;
+        --sidebar-primary: 262 83% 58%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 25 95% 53%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 262 83% 58%;
+    }
+
+    .dark {
+        --background: 210 24% 16%;
+        --foreground: 0 0% 98%;
+        --card: 210 24% 16%;
+        --card-foreground: 0 0% 98%;
+        --popover: 210 24% 16%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 210 24% 16%;
+        --secondary: 262 83% 58%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 215 16% 47%;
+        --muted-foreground: 0 0% 98%;
+        --accent: 262 83% 58%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 25 95% 53%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 215 16% 47%;
+        --input: 215 16% 47%;
+        --ring: 262 83% 58%;
+        --chart-1: 45 93% 58%;
+        --chart-2: 142 76% 73%;
+        --chart-3: 217 91% 60%;
+        --chart-4: 271 81% 56%;
+        --chart-5: 347 77% 50%;
+        --sidebar-background: 210 24% 16%;
+        --sidebar-foreground: 0 0% 98%;
+        --sidebar-primary: 262 83% 58%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 25 95% 53%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 215 16% 47%;
+        --sidebar-ring: 262 83% 58%;
+    }
+}
+
+* {
+    border-color: hsl(var(--border));
+}
+
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}

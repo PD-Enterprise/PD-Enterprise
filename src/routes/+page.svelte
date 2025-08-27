@@ -13,7 +13,7 @@
 
 <div class="flex min-h-screen flex-col bg-gradient-to-b from-indigo-50 to-white">
 	<header
-		class="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40 w-full border-b backdrop-blur"
+		class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 		style:display={$isAdminRoute ? 'none' : 'block'}
 	>
 		<div class="container m-auto flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -76,16 +76,16 @@
 						<div class="flex flex-col gap-3 min-[400px]:flex-row">
 							<a href="/blog">
 								<button
-									class="ring-offset-background focus-visible:ring-ring inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 px-8 text-sm font-medium transition-colors hover:from-indigo-700 hover:to-purple-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+									class="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 px-8 text-sm font-medium ring-offset-background transition-colors hover:from-indigo-700 hover:to-purple-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
 								>
 									Check out our blog!
 								</button>
 							</a>
 							<a href="#products">
 								<button
-									class="border-input bg-background hover:text-accent-foreground ring-offset-background focus-visible:ring-ring hover:bg-gray-00 inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-indigo-600 px-8 text-sm font-medium text-indigo-600 transition-colors hover:bg-gray-100 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+									class="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-indigo-600 border-input bg-background px-8 text-sm font-medium text-indigo-600 ring-offset-background transition-colors hover:bg-accent hover:bg-indigo-50 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
 								>
-									Explore Product
+									Explore Products
 								</button>
 							</a>
 						</div>
@@ -129,7 +129,7 @@
 
 				<div class="grid gap-10 lg:grid-cols-2">
 					<card
-						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+						class="overflow-hidden rounded-lg border-0 bg-card bg-gradient-to-br from-indigo-50 to-white text-card-foreground shadow-lg"
 					>
 						<div
 							class="absolute right-0 top-0 -mr-10 -mt-10 h-32 w-32 rounded-full bg-indigo-200 opacity-20 blur-2xl"
@@ -170,7 +170,7 @@
 									<cardTitle class="text-2xl font-semibold leading-none tracking-tight"
 										>Grade AI</cardTitle
 									>
-									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+									<cardDescription class="text-sm text-gray-600 text-muted-foreground"
 										>AI-powered learning assistant</cardDescription
 									>
 								</div>
@@ -185,7 +185,7 @@
 							<div class="p-4">
 								<a href="/products/grade-ai">
 									<button
-										class="ring-offset-background focus-visible:ring-ring btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+										class="btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white ring-offset-background transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
 									>
 										Learn More
 									</button>
@@ -195,7 +195,7 @@
 					</card>
 
 					<card
-						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+						class="overflow-hidden rounded-lg border-0 bg-card bg-gradient-to-br from-indigo-50 to-white text-card-foreground shadow-lg"
 					>
 						<div
 							class="absolute right-0 top-0 -mr-10 -mt-10 h-32 w-32 rounded-full bg-purple-200 opacity-20 blur-2xl"
@@ -227,7 +227,7 @@
 									<cardTitle class="text-2xl font-semibold leading-none tracking-tight"
 										>cnotes</cardTitle
 									>
-									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+									<cardDescription class="text-sm text-gray-600 text-muted-foreground"
 										>Collaborative note-taking platform</cardDescription
 									>
 								</div>
@@ -242,7 +242,7 @@
 							<div class="p-4">
 								<a href="/products/cnotes">
 									<button
-										class="ring-offset-background focus-visible:ring-ring btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+										class="btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white ring-offset-background transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
 										>Learn More</button
 									>
 								</a>
@@ -479,6 +479,7 @@
 			</div>
 		</section> -->
 	</main>
+
 	<footer class="w-full border-t">
 		<div class="container m-auto flex flex-col gap-8 px-8 py-12 md:flex-row md:py-16">
 			<div class="flex flex-col gap-3 md:w-1/3">
