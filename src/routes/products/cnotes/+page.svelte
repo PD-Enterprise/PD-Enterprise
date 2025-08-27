@@ -96,7 +96,7 @@
 					</div>
 					<div class="relative">
 						<img
-							src={cnotesScreenshot}
+							src="cnotesScreenshot"
 							width={550}
 							height={550}
 							alt="cnotes app interface showing organized notes and collaboration features"
