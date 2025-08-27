@@ -11,7 +11,7 @@
 	});
 </script>
 
-<div class="flex min-h-screen flex-col">
+<div class="flex min-h-screen flex-col bg-gradient-to-b from-indigo-50 to-white">
 	<header
 		class="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40 w-full border-b backdrop-blur"
 		style:display={$isAdminRoute ? 'none' : 'block'}
@@ -47,10 +47,9 @@
 			</div>
 		</div>
 	</header>
-	<main class="m-auto flex flex-1">
-		<section
-			class="w-full bg-gradient-to-b from-indigo-50 to-white py-12 md:py-24 lg:py-32 xl:py-48"
-		>
+
+	<main class="m-auto flex-1">
+		<section class="w-full py-12 md:py-24 lg:py-32 xl:py-48">
 			<div class="container px-8 md:px-12">
 				<div class="grid gap-8 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
 					<div class="flex flex-col justify-center space-y-6">
@@ -75,16 +74,20 @@
 							</p>
 						</div>
 						<div class="flex flex-col gap-3 min-[400px]:flex-row">
-							<button
-								class="ring-offset-background focus-visible:ring-ring inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 px-8 text-sm font-medium transition-colors hover:from-indigo-700 hover:to-purple-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
-							>
-								<a href="#contact">Check out our blog!</a>
-							</button>
-							<button
-								class="border-input bg-background hover:text-accent-foreground ring-offset-background focus-visible:ring-ring hover:bg-gray-00 inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-indigo-600 px-8 text-sm font-medium text-indigo-600 transition-colors hover:bg-gray-100 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
-							>
-								<a href="#products">Explore Products</a>
-							</button>
+							<a href="/blog">
+								<button
+									class="ring-offset-background focus-visible:ring-ring inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 px-8 text-sm font-medium transition-colors hover:from-indigo-700 hover:to-purple-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+								>
+									Check out our blog!
+								</button>
+							</a>
+							<a href="#products">
+								<button
+									class="border-input bg-background hover:text-accent-foreground ring-offset-background focus-visible:ring-ring hover:bg-gray-00 inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md border border-indigo-600 px-8 text-sm font-medium text-indigo-600 transition-colors hover:bg-gray-100 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+								>
+									Explore Product
+								</button>
+							</a>
 						</div>
 					</div>
 					<div class="relative">
@@ -96,8 +99,8 @@
 						></div>
 						<img
 							src={studentsStudying}
-							width={550}
-							height={550}
+							width="550px"
+							height="550px"
 							alt="Students collaborating on a project"
 							class="mx-auto aspect-video overflow-hidden rounded-xl object-cover shadow-lg sm:w-full lg:order-last"
 						/>
@@ -105,6 +108,376 @@
 				</div>
 			</div>
 		</section>
+
+		<section id="products" class="w-full py-16 md:py-24 lg:py-32">
+			<div class="container px-8 md:px-12">
+				<div class="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
+					<div class="space-y-2">
+						<div class="inline-block rounded-lg bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+							Our Products
+						</div>
+						<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+							Tools Built for Student Success
+						</h2>
+						<p
+							class="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+						>
+							Our suite of educational tools helps students excel in their academic journey.
+						</p>
+					</div>
+				</div>
+
+				<div class="grid gap-10 lg:grid-cols-2">
+					<card
+						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+					>
+						<div
+							class="absolute right-0 top-0 -mr-10 -mt-10 h-32 w-32 rounded-full bg-indigo-200 opacity-20 blur-2xl"
+						></div>
+						<cardHeader class="flex flex-col space-y-1.5 p-6 pb-0">
+							<div class="flex items-center gap-4">
+								<div class="rounded-full bg-indigo-100 p-3">
+									<brainCircuit class="h-8 w-8 text-indigo-600">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="lucide lucide-brain-circuit h-8 w-8 text-indigo-600"
+											><path
+												d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
+											></path><path d="M9 13a4.5 4.5 0 0 0 3-4"></path><path
+												d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
+											></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path
+												d="M6 18a4 4 0 0 1-1.967-.516"
+											></path><path d="M12 13h4"></path><path d="M12 18h6a2 2 0 0 1 2 2v1"
+											></path><path d="M12 8h8"></path><path d="M16 8V5a2 2 0 0 1 2-2"
+											></path><circle cx="16" cy="13" r=".5"></circle><circle cx="18" cy="3" r=".5"
+											></circle><circle cx="20" cy="21" r=".5"></circle><circle
+												cx="20"
+												cy="8"
+												r=".5"
+											></circle></svg
+										>
+									</brainCircuit>
+								</div>
+								<div class="flex flex-col space-y-1.5">
+									<cardTitle class="text-2xl font-semibold leading-none tracking-tight"
+										>Grade AI</cardTitle
+									>
+									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+										>AI-powered learning assistant</cardDescription
+									>
+								</div>
+							</div>
+						</cardHeader>
+						<cardContent class="space-y-4 p-6">
+							<p class="p-6 text-gray-600">
+								A specially trained AI model designed not just to answer questions, but to teach
+								students every concept thoroughly. Grade AI explains complex topics in simple terms,
+								provides step-by-step solutions, and adapts to your learning style.
+							</p>
+							<div class="p-4">
+								<a href="/products/grade-ai">
+									<button
+										class="ring-offset-background focus-visible:ring-ring btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+									>
+										Learn More
+									</button>
+								</a>
+							</div>
+						</cardContent>
+					</card>
+
+					<card
+						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+					>
+						<div
+							class="absolute right-0 top-0 -mr-10 -mt-10 h-32 w-32 rounded-full bg-purple-200 opacity-20 blur-2xl"
+						></div>
+						<cardHeader class="flex flex-col space-y-1.5 p-6 pb-0">
+							<div class="flex items-center gap-4">
+								<div class="rounded-full bg-purple-100 p-3">
+									<notebookPen class="h-8 w-8 text-purple-600">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="lucide lucide-notebook-pen h-8 w-8 text-purple-600"
+											><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"
+											></path><path d="M2 6h4"></path><path d="M2 10h4"></path><path d="M2 14h4"
+											></path><path d="M2 18h4"></path><path
+												d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+											></path></svg
+										>
+									</notebookPen>
+								</div>
+								<div class="flex flex-col space-y-1.5">
+									<cardTitle class="text-2xl font-semibold leading-none tracking-tight"
+										>cnotes</cardTitle
+									>
+									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+										>Collaborative note-taking platform</cardDescription
+									>
+								</div>
+							</div>
+						</cardHeader>
+						<cardContent class="space-y-4 p-6">
+							<p class="p-6 text-gray-600">
+								A note-taking platform that makes organizing and sharing notes easier than ever.
+								Create structured notes with rich formatting, collaborate with classmates in
+								real-time, and access your study materials from any device.
+							</p>
+							<div class="p-4">
+								<a href="/products/cnotes">
+									<button
+										class="ring-offset-background focus-visible:ring-ring btn inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md border-none bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+										>Learn More</button
+									>
+								</a>
+							</div>
+						</cardContent>
+					</card>
+				</div>
+
+				<div class="mt-16 text-center">
+					<div
+						class="inline-block rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 px-6 py-3"
+					>
+						<p class="font-medium text-gray-700">More innovative apps launching soon!</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section
+			id="about"
+			class="w-full bg-gradient-to-b from-white to-indigo-50 py-16 md:py-24 lg:py-32"
+		>
+			<div class="container px-8 md:px-12">
+				<div class="grid gap-12 lg:grid-cols-2">
+					<div class="space-y-6">
+						<div class="inline-block rounded-lg bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+							Our Story
+						</div>
+						<h2 class="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+							Created by Students Who Understand Your Challenges
+						</h2>
+						<div class="space-y-4 text-gray-600">
+							<p class="md:text-lg">
+								We understand the challenges students face because we've been there ourselves.
+								Founded by a student who experienced the struggles of juggling classes, studying
+								effectively, and staying organized, PD Enterprise is dedicated to creating
+								innovative tools that empower students to reach their full potential.
+							</p>
+							<div class="space-y-4 pt-4">
+								<div class="rounded-xl bg-indigo-200 p-6 shadow-sm">
+									<h3 class="mb-2 text-xl font-semibold text-indigo-600">Our Mission</h3>
+									<p>
+										We believe every student deserves access to resources that make learning
+										engaging, efficient, and collaborative.
+									</p>
+								</div>
+								<div class="rounded-xl bg-purple-200 p-6 shadow-sm">
+									<h3 class="mb-2 text-xl font-semibold text-purple-600">Our Vision</h3>
+									<p>
+										To be the leading provider of student-focused software, transforming the way
+										students learn and achieve academic success.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="relative">
+						<div
+							class="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-indigo-200 opacity-30 blur-2xl"
+						></div>
+						<div
+							class="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-purple-200 opacity-30 blur-2xl"
+						></div>
+						<img
+							src={''}
+							width={600}
+							height={500}
+							alt="PD Enterprise team"
+							class="mx-auto aspect-video overflow-hidden rounded-xl bg-indigo-50 object-cover shadow-lg"
+						/>
+						<div class="mt-8 grid grid-cols-2 gap-6">
+							<div class="rounded-xl bg-indigo-100 p-6 shadow-sm">
+								<h3 class="text-2xl font-bold text-indigo-600">1+</h3>
+								<p class="text-gray-600">Active Student Users</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- <section id="testimonials" class="w-full py-16 md:py-24 lg:py-32">
+			<div class="container px-8 md:px-12">
+				<div class="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
+					<div class="space-y-2">
+						<div class="inline-block rounded-lg bg-indigo-100 px-3 py-1 text-sm text-indigo-800">
+							Testimonials
+						</div>
+						<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">What Students Say</h2>
+						<p
+							class="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+						>
+							Hear from students who have transformed their academic experience with our tools.
+						</p>
+					</div>
+				</div>
+				<div class="mx-auto grid max-w-5xl gap-8 py-8 md:grid-cols-2 lg:grid-cols-3">
+					<card
+						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+					>
+						<cardHeader class="flex flex-col space-y-1.5 p-6 pb-0">
+							<div class="flex items-center gap-4">
+								<div class="rounded-full bg-indigo-100 p-2">
+									<users class="h-5 w-5 text-indigo-600">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="lucide lucide-users h-5 w-5 text-indigo-600"
+											><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle
+												cx="9"
+												cy="7"
+												r="4"
+											></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path
+												d="M16 3.13a4 4 0 0 1 0 7.75"
+											></path></svg
+										>
+									</users>
+								</div>
+								<div class="flex flex-col space-y-1.5">
+									<cardTitle class="text-lg font-semibold leading-none tracking-tight"
+										>Alex Johnson</cardTitle
+									>
+									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+										>Computer Science Major</cardDescription
+									>
+								</div>
+							</div>
+						</cardHeader>
+						<cardContent class="flex flex-col space-y-4 p-6 pt-6">
+							<p class="text-gray-600">
+								"Grade AI helped me understand complex algorithms that I was struggling with. It's
+								like having a tutor available 24/7 who actually teaches me how to solve problems."
+							</p>
+						</cardContent>
+					</card>
+					<card
+						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+					>
+						<cardHeader class="flex flex-col space-y-1.5 p-6 pb-0">
+							<div class="flex items-center gap-4">
+								<div class="rounded-full bg-purple-100 p-2">
+									<users class="h-5 w-5 text-purple-600">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="lucide lucide-users h-5 w-5 text-indigo-600"
+											><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle
+												cx="9"
+												cy="7"
+												r="4"
+											></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path
+												d="M16 3.13a4 4 0 0 1 0 7.75"
+											></path></svg
+										>
+									</users>
+								</div>
+								<div class="flex flex-col space-y-1.5">
+									<cardTitle class="text-lg font-semibold leading-none tracking-tight"
+										>Mia Rodriguez</cardTitle
+									>
+									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+										>Biology Student</cardDescription
+									>
+								</div>
+							</div>
+						</cardHeader>
+						<cardContent class="flex flex-col space-y-4 p-6 pt-6">
+							<p class="text-gray-600">
+								"cnotes transformed how I organize my study materials. Being able to collaborate
+								with classmates and access my notes from anywhere has been a game-changer."
+							</p>
+						</cardContent>
+					</card>
+					<card
+						class="bg-card text-card-foreground overflow-hidden rounded-lg border-0 bg-gradient-to-br from-indigo-50 to-white shadow-lg"
+					>
+						<cardHeader class="flex flex-col space-y-1.5 p-6 pb-0">
+							<div class="flex items-center gap-4">
+								<div class="rounded-full bg-indigo-100 p-2">
+									<users class="h-5 w-5 text-indigo-600">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="lucide lucide-users h-5 w-5 text-indigo-600"
+											><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle
+												cx="9"
+												cy="7"
+												r="4"
+											></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path
+												d="M16 3.13a4 4 0 0 1 0 7.75"
+											></path></svg
+										>
+									</users>
+								</div>
+								<div class="flex flex-col space-y-1.5">
+									<cardTitle class="text-lg font-semibold leading-none tracking-tight"
+										>James Lee</cardTitle
+									>
+									<cardDescription class="text-muted-foreground text-sm text-gray-600"
+										>Engineering Major</cardDescription
+									>
+								</div>
+							</div>
+						</cardHeader>
+						<cardContent class="flex flex-col space-y-4 p-6 pt-6">
+							<p class="text-gray-600">
+								"The combination of Grade AI and cnotes has completely changed how I study. I'm
+								understanding concepts better and my grades have improved significantly."
+							</p>
+						</cardContent>
+					</card>
+				</div>
+			</div>
+		</section> -->
 	</main>
 	<footer class="w-full border-t">
 		<div class="container m-auto flex flex-col gap-8 px-8 py-12 md:flex-row md:py-16">
